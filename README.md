@@ -21,7 +21,7 @@ Ensure you're on the `main` branch.
 
 ## Setup
 1. cd into project root directory: `cd squarepeg`
-2. install project dependencies: `php artisan install`
+2. install project dependencies: `composer install`
 3. Copy `.env.example` and rename to `.env` in the project's root directory
 4. Run `php artisan key:generate` to set application's encryption key `APP_KEY` in the `.env` file;
    or `cp .env.example .env && php artisan key:generate`, if you'd rather get 3 & 4 done in one fell swoop
