@@ -2,6 +2,8 @@
 
 namespace App\Observers;
 
+use App\Contracts\CanHaveRoles;
+use App\Enums\RoleType;
 use App\Models\User;
 
 class UserObserver
@@ -14,50 +16,10 @@ class UserObserver
      */
     public function created(User $user)
     {
-        //
-    }
-
-    /**
-     * Handle the User "updated" event.
-     *
-     * @param  \App\Models\User  $user
-     * @return void
-     */
-    public function updated(User $user)
-    {
-        //
-    }
-
-    /**
-     * Handle the User "deleted" event.
-     *
-     * @param  \App\Models\User  $user
-     * @return void
-     */
-    public function deleted(User $user)
-    {
-        //
-    }
-
-    /**
-     * Handle the User "restored" event.
-     *
-     * @param  \App\Models\User  $user
-     * @return void
-     */
-    public function restored(User $user)
-    {
-        //
-    }
-
-    /**
-     * Handle the User "force deleted" event.
-     *
-     * @param  \App\Models\User  $user
-     * @return void
-     */
-    public function forceDeleted(User $user)
-    {
-        //
+        if ($user instanceof CanHaveRoles) {
+            if ($user->email === env('ADMIN_EMAIL')) {
+                $user->assignRole(RoleType::Admin);
+            } else $user->assignRole(); // default user role
+        }
     }
 }

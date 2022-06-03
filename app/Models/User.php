@@ -2,15 +2,23 @@
 
 namespace App\Models;
 
+use App\Contracts\CanHaveRoles;
+use App\Traits\HasRoles;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements CanHaveRoles
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+
+    /**
+     * define default admin `name`
+     */
+    const ADMIN_NAME = 'admin';
 
     /**
      * The attributes that are mass assignable.
@@ -41,4 +49,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * @return void
+     */
+    public static function createDefault()
+    {
+        self::create([
+            'name' => self::ADMIN_NAME,
+            'email' => env('ADMIN_EMAIL'),
+            'password' => Hash::make(env('ADMIN_PASSWORD'))
+        ]);
+    }
 }
