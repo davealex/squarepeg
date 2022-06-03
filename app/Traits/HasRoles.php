@@ -39,6 +39,6 @@ trait HasRoles
             return true; // skip gate check
         }
 
-        return $this->roles->pluck('title')->contains($role);
+        return $this->roles->pluck('title')->contains($role->value);
     }
 }

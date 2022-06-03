@@ -13,10 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [App\Http\Controllers\PostController::class, 'index']);
+Route::get('/posts/{post}/read', [App\Http\Controllers\PostController::class, 'show']);
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('admin');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/posts/create', [App\Http\Controllers\PostController::class, 'create'])->name('post.create');
+    Route::post('/posts/create', [App\Http\Controllers\PostController::class, 'store'])->name('post.store');
+
+//    Route::middleware(['admin'])->group(function () {});
+});
+
