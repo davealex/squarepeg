@@ -26,7 +26,8 @@ Ensure you're on the `main` branch.
 4. Run `php artisan key:generate` to set application's encryption key `APP_KEY` in the `.env` file;
    or `cp .env.example .env && php artisan key:generate`, if you'd rather get 3 & 4 done in one fell swoop
 5. Create a database, and configure the application to interact with the created database. Do this within the `.env` file by setting appropriate values for the `DB_HOST`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`, etc., environment variables
-6. Run database migrations to create relevant database tables, add seed default data: `php artisan migrate --seed`
+6. Add `ADMIN_EMAIL` and `ADMIN_PASSWORD` env variables, necessary for setting up default admin in the data seeding process below
+7. Run database migrations to create relevant database tables, add seed default data: `php artisan migrate --seed`
 
 ## Testing
 Run test suites: `php artisan test`
