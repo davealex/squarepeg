@@ -23,6 +23,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/posts/create', [App\Http\Controllers\PostController::class, 'create'])->name('post.create');
     Route::post('/posts/create', [App\Http\Controllers\PostController::class, 'store'])->name('post.store');
 
-//    Route::middleware(['admin'])->group(function () {});
+    Route::middleware(['admin'])->group(function () {
+        Route::get('/posts/fetch-posts', App\Http\Controllers\ImportBlogPosts::class);
+    });
 });
 

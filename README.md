@@ -29,6 +29,16 @@ Ensure you're on the `main` branch.
 6. Add `ADMIN_EMAIL` and `ADMIN_PASSWORD` env variables, necessary for setting up default admin in the data seeding process below
 7. Run database migrations to create relevant database tables, add seed default data: `php artisan migrate --seed`
 
+## Others
+- You can update the `ADMIN_PASSWORD` variable in your `.env` file, or use the provided default
+- To see the Slack Logs in action, you'll need to add a webhook url to `.env` at `LOG_SLACK_WEBHOOK_URL` 
+
+## Others
+You can run the program with `php artisan import:posts api`
+You can also listen for queues with `php artisan queue:listen`
+
+Note: the `api` option provided above runs the API importer aspect of the program. The program is built to potentially allow importing data from other sources, such as; `file`
+
 ## Testing
 Run test suites: `php artisan test`
 
