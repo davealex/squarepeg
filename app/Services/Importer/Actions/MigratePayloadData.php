@@ -30,21 +30,12 @@ class MigratePayloadData
     }
 
     /**
-     * @return void
-     * @throws AdminNotFound
-     */
-    public function __invoke()
-    {
-        $this->processPayload();
-    }
-
-    /**
      * Execute the job.
      *
      * @return void
      * @throws AdminNotFound
      */
-    public function processPayload()
+    public function process()
     {
         if ($this->adminRecord()->exists()) {
             $admin = $this->adminRecord()->first();

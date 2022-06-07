@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePostRequest;
 use App\Models\Post;
+use App\Services\Caching\PaginatedPostCache;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -14,14 +15,15 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param PaginatedPostCache $paginatedPostCache
      * @return Application|Factory|View
      */
-    public function index(): View|Factory|Application
+    public function index(PaginatedPostCache $paginatedPostCache): View|Factory|Application
     {
-        $posts = Post::getPostsFromQuery(Post::query());
+        $filteredPostsQuery = Post::filteredPostsQuery(Post::query());
 
         return view('posts.index', [
-            'posts' => $posts->paginate('10')->withQueryString()
+            'posts' => $paginatedPostCache->getPosts($filteredPostsQuery)
         ]);
     }
 

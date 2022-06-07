@@ -108,7 +108,7 @@ class Post extends Model implements MustHaveSluggableAttribute
      * @param Builder|HasMany $query
      * @return mixed
      */
-    public static function getPostsFromQuery(Builder|HasMany $query): mixed
+    public static function filteredPostsQuery(Builder|HasMany $query): mixed
     {
         return $query->when(
             Post::shouldBeOrderedByPublicationDate(),
@@ -136,5 +136,18 @@ class Post extends Model implements MustHaveSluggableAttribute
         return new Attribute(
             get: fn () => (new ReadTime($this->attributes['description']))->get()
         );
+    }
+
+    /**
+     * @param mixed $query
+     * @param int $perPage
+     * @return Closure
+     */
+    public static function getPaginatedPosts(mixed $query, int $perPage): Closure
+    {
+        return function () use ($query, $perPage) {
+            return $query->simplePaginate($perPage)
+                ->withQueryString();
+        };
     }
 }

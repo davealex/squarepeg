@@ -43,6 +43,6 @@ class ProcessPayload implements ShouldQueue
      */
     public function handle()
     {
-        (new MigratePayloadData($this->payload))->processPayload();
+        (new MigratePayloadData($this->payload))->process();
     }
 }

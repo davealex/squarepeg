@@ -39,6 +39,10 @@ You can also listen for queues with `php artisan queue:listen`
 
 Note: the `api` option provided above runs the API importer aspect of the program. The program is built to potentially allow importing data from other sources, such as; `file`
 
+It is also helpful to cache/re-cache application data, like:
+1. routes `php artisan route:cache`
+2. config `php artisan config:cache`
+
 ## Testing
 Run test suites: `php artisan test`
 

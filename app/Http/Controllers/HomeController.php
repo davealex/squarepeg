@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Services\Caching\PaginatedPostCache;
 use Illuminate\Contracts\Support\Renderable;
 
 class HomeController extends Controller
@@ -10,14 +11,15 @@ class HomeController extends Controller
     /**
      * Show the application dashboard.
      *
+     * @param PaginatedPostCache $paginatedPostCache
      * @return Renderable
      */
-    public function index(): Renderable
+    public function index(PaginatedPostCache $paginatedPostCache): Renderable
     {
-        $posts = Post::getPostsFromQuery(auth()->user()->posts());
+        $filteredPostsQuery = Post::filteredPostsQuery(auth()->user()->posts());
 
         return view('home', [
-            'posts' => $posts->paginate('10')->withQueryString()
+            'posts' => $paginatedPostCache->getPosts($filteredPostsQuery)
         ]);
     }
 }

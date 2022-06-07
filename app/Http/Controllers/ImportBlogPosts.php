@@ -17,7 +17,11 @@ class ImportBlogPosts extends Controller
      */
     public function __invoke(Request $request, Importable $importable): mixed
     {
-        return $importable->fetch()
+        $importable->fetch()
             ->persist();
+
+        return response([
+            'message' => 'Import complete!'
+        ]);
     }
 }
