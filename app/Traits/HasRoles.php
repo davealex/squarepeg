@@ -26,7 +26,7 @@ trait HasRoles
     {
         $role = Role::whereTitle($role?->value ?: 'user')->firstOrFail();
 
-        $this->roles()->sync($role, false);
+        $this->roles()->sync($role);
     }
 
     /**
@@ -35,7 +35,7 @@ trait HasRoles
      */
     public function hasRole(RoleType $role): bool
     {
-        if (! ($this instanceof CanHaveRoles)) {
+        if (! (new self instanceof CanHaveRoles)) {
             return true; // skip gate check
         }
 

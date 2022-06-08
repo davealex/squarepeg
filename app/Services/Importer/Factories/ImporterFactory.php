@@ -9,15 +9,15 @@ use App\Services\Importer\Implementations\FileImporter;
 class ImporterFactory
 {
     /**
-     * @param string
+     * @param string $source
      * @return ApiImporter|FileImporter
      * @throws UnsupportedImporterService
      */
-    public function configureSource(string $source): ApiImporter|FileImporter
+    public function configureSource(string $source = 'api'): ApiImporter|FileImporter
     {
-        return match ($source) {
-            'api' => new ApiImporter(),
-            'file' => new FileImporter(),
+       return match ($source) {
+            'api' => new ApiImporter,
+            'file' => new FileImporter,
             default => throw new UnsupportedImporterService("The specified importer service [$source] is not currently supported."),
         };
     }

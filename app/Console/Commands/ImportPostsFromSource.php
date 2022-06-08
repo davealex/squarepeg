@@ -2,10 +2,11 @@
 
 namespace App\Console\Commands;
 
-use App\Services\Importer\Exceptions\UnsupportedImporterService;
 use App\Services\Importer\Factories\ImporterFactory;
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
+use function PHPUnit\Framework\throwException;
 
 class ImportPostsFromSource extends Command
 {
@@ -14,7 +15,7 @@ class ImportPostsFromSource extends Command
      *
      * @var string
      */
-    protected $signature = 'import:posts {source}';
+    protected $signature = 'import:posts {source=api}';
 
     /**
      * The console command description.
@@ -35,8 +36,13 @@ class ImportPostsFromSource extends Command
             $importerFactory->configureSource($this->argument('source'))
                 ->fetch()
                 ->persist();
-        } catch (\Exception $exception) {
-            Log::error($exception->getMessage());
+        } catch (Exception $exception) {
+            $message = $exception->getMessage();
+
+            Log::error($message);
+            $this->error($message);
+
+            throwException($exception);
         }
 
         return 0;

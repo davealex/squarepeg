@@ -20,7 +20,9 @@ class PostPolicy
      */
     public function edit(User $user, Post $post): bool
     {
-        return $this->actionIsAllowed($user, $post);
+//        return $this->actionIsAllowed($user, $post);
+
+        return false;
     }
 
     /**
@@ -32,7 +34,9 @@ class PostPolicy
      */
     public function destroy(User $user, Post $post): bool
     {
-        return $this->actionIsAllowed($user, $post);
+//        return $this->actionIsAllowed($user, $post);
+
+        return false;
     }
 
     /**

@@ -14,9 +14,16 @@ class PaginatedPostCache
      */
     private mixed $request;
 
+    /**
+     * @var DataCacheIndexer
+     */
+    private DataCacheIndexer $cacheIndexer;
+
     public function __construct()
     {
         $this->request = request();
+
+        $this->cacheIndexer = new DataCacheIndexer;
     }
 
     /**
@@ -56,10 +63,32 @@ class PaginatedPostCache
     }
 
     /**
+     * @return string|null
+     */
+    private function keyUserSuffix(): string|null
+    {
+        return (string) auth()->check() ? '_user_' . auth()->id() : null;
+    }
+
+    /**
      * @return string
      */
     private function generateCacheKey(): string
     {
-        return sha1($this->getFullUrl());
+        $key = $this->getFullUrl();
+        $key .= $this->keyUserSuffix();
+        $key .= $this->dataIndexSuffix();
+
+        return sha1($key);
+    }
+
+    /**
+     * @return string
+     */
+    private function dataIndexSuffix(): string
+    {
+        $currentIndex = $this->cacheIndexer->currentIndex;
+
+        return "_$currentIndex";
     }
 }

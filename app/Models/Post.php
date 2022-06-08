@@ -26,6 +26,11 @@ class Post extends Model implements MustHaveSluggableAttribute
     const SLUGGABLE_ATTRIBUTE = 'title';
 
     /**
+     * @var bool
+     */
+    public $timestamps = false;
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>

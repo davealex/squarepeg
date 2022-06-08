@@ -4,6 +4,7 @@ namespace App\Services\Importer\Actions;
 
 use App\Models\Payload;
 use App\Models\User;
+use App\Services\Caching\DataCacheIndexer;
 use App\Services\Importer\Exceptions\AdminNotFound;
 use Illuminate\Support\Facades\Log;
 

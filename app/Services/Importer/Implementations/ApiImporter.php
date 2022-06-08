@@ -12,7 +12,7 @@ final class ApiImporter extends Importer
     /**
      * @var string
      */
-    private string $url;
+    public string $url;
     private array $config;
 
     /**

@@ -34,8 +34,8 @@ Ensure you're on the `main` branch.
 - To see the Slack Logs in action, you'll need to add a webhook url to `.env` at `LOG_SLACK_WEBHOOK_URL` 
 
 ## Others
-You can run the program with `php artisan import:posts api`
 You can also listen for queues with `php artisan queue:listen`
+You can run the importer program with `php artisan import:posts api`
 
 Note: the `api` option provided above runs the API importer aspect of the program. The program is built to potentially allow importing data from other sources, such as; `file`
 
