@@ -5,14 +5,15 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class ExampleTest extends TestCase
+class AppTest extends TestCase
 {
+    use RefreshDatabase;
     /**
-     * A basic test example.
+     * The landing page is accessible.
      *
      * @return void
      */
-    public function test_the_application_returns_a_successful_response()
+    public function test_the_application_is_running()
     {
         $response = $this->get('/');
 
