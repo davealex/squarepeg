@@ -36,6 +36,6 @@ class PostObserver
     {
         $dataCacheIndexer = new DataCacheIndexer;
         $currentIndex = $dataCacheIndexer->currentIndex;
-        $dataCacheIndexer->setDataIndex($currentIndex++, );
+        $dataCacheIndexer->setDataIndex($currentIndex + 1);
     }
 }
